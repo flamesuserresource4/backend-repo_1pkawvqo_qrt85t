@@ -12,7 +12,7 @@ Model name is converted to lowercase for the collection name:
 """
 
 from pydantic import BaseModel, Field
-from typing import Optional
+from typing import Optional, List
 
 # Example schemas (replace with your own):
 
@@ -40,6 +40,17 @@ class Product(BaseModel):
 
 # Add your own schemas here:
 # --------------------------------------------------
+
+class Flashcard(BaseModel):
+    """
+    Flashcards for studying
+    Collection name: "flashcard"
+    """
+    question: str = Field(..., description="Question or prompt on the front of the card")
+    answer: str = Field(..., description="Answer or explanation on the back of the card")
+    deck: Optional[str] = Field(None, description="Optional deck/category name")
+    tags: Optional[List[str]] = Field(default=None, description="Optional tags for filtering")
+    difficulty: Optional[str] = Field(default=None, description="Optional difficulty label")
 
 # Note: The Flames database viewer will automatically:
 # 1. Read these schemas from GET /schema endpoint
